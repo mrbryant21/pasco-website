@@ -1,0 +1,3648 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  --primary-color: #ed1b24;
+  --secondary-color: #242021;
+  --accent-color: #6e6f71;
+  --white: #ffffff;
+  --dark-overlay: rgba(36, 32, 33, 0.7);
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  line-height: 1.6;
+  color: var(--secondary-color);
+  overflow-x: hidden;
+
+}
+
+html {
+  overflow-x: hidden;
+}
+
+/* ===== SCROLL ANIMATIONS ===== */
+
+/* Base classes for elements before they are animated */
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scroll-animate.fade-in {
+  transform: translateY(30px);
+}
+
+.scroll-animate.slide-left {
+  transform: translateX(-60px);
+}
+
+.scroll-animate.slide-right {
+  transform: translateX(60px);
+}
+
+.scroll-animate.scale-up {
+  transform: scale(0.9) translateY(30px);
+}
+
+.scroll-animate.rotate-in {
+  transform: rotate(-5deg) translateY(40px);
+}
+
+/* Active state when element is in view */
+.scroll-animate.animated {
+  opacity: 1;
+  transform: translateY(0) translateX(0) scale(1) rotate(0);
+}
+
+/* Stagger animation delays for multiple elements */
+.scroll-animate.delay-1 {
+  transition-delay: 0.1s;
+}
+
+.scroll-animate.delay-2 {
+  transition-delay: 0.2s;
+}
+
+.scroll-animate.delay-3 {
+  transition-delay: 0.3s;
+}
+
+.scroll-animate.delay-4 {
+  transition-delay: 0.4s;
+}
+
+.scroll-animate.delay-5 {
+  transition-delay: 0.5s;
+}
+
+.scroll-animate.delay-6 {
+  transition-delay: 0.6s;
+}
+
+/* Smooth lazy scrolling effect */
+@keyframes smoothFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Enhanced smooth scrolling for navigation */
+@supports (scroll-behavior: smooth) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-animate {
+    transition: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Headings use Montserrat */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--secondary-color);
+}
+
+/* Paragraphs, lists, and other text use Outfit */
+p,
+li,
+span,
+a,
+button,
+input,
+textarea,
+select {
+  font-family: 'Outfit', sans-serif;
+}
+
+/* Header */
+.pasco-header {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Navigation */
+.pasco-navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: var(--white);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.pasco-nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+}
+
+.pasco-nav-logo img {
+  max-height: 50px;
+}
+
+.pasco-nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 40px;
+}
+
+.pasco-nav-link {
+  text-decoration: none;
+  color: var(--secondary-color);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.pasco-nav-link:hover,
+.pasco-nav-link.active {
+  color: var(--primary-color);
+}
+
+.pasco-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.pasco-nav-link:hover::after,
+.pasco-nav-link.active::after {
+  width: 100%;
+}
+
+/* Hamburger Menu */
+.pasco-hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 4px;
+}
+
+.pasco-bar {
+  width: 25px;
+  height: 3px;
+  background: var(--secondary-color);
+  transition: all 0.3s ease;
+}
+
+/* Hero Slider */
+.pasco-hero-slider {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.pasco-slider-nav {
+  position: absolute;
+  left: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.pasco-nav-number {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--white);
+  cursor: pointer;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+  position: relative;
+  padding-left: 30px;
+}
+
+.pasco-nav-number::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 2px;
+  background: var(--white);
+  opacity: 0.3;
+  transition: all 0.3s ease;
+}
+
+.pasco-nav-number.active,
+.pasco-nav-number:hover {
+  opacity: 1;
+  color: var(--primary-color);
+}
+
+.pasco-nav-number.active::before,
+.pasco-nav-number:hover::before {
+  background: var(--primary-color);
+  opacity: 1;
+  width: 40px;
+}
+
+.pasco-slides-container {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+}
+
+.pasco-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pasco-slide::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--dark-overlay);
+  z-index: 1;
+}
+
+.pasco-slide.active {
+  opacity: 1;
+}
+
+.pasco-slide-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: var(--white);
+  max-width: 800px;
+  padding: 0 20px;
+  transition: transform 0.1s ease;
+}
+
+.pasco-slide-title {
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+  color: var(--white);
+}
+
+.pasco-slide-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.pasco-slide-description {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  line-height: 1.8;
+  opacity: 0.9;
+}
+
+.pasco-slide-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.pasco-btn {
+  display: inline-block;
+  padding: 15px 30px;
+  text-decoration: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  font-size: 14px;
+}
+
+.pasco-btn-primary {
+  background: var(--primary-color);
+  color: var(--white);
+  border-color: var(--primary-color);
+}
+
+.pasco-btn-primary:hover {
+  background: transparent;
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.pasco-btn-secondary {
+  background: transparent;
+  color: var(--white);
+  border-color: var(--white);
+}
+
+.pasco-btn-secondary:hover {
+  background: var(--white);
+  color: var(--secondary-color);
+  border-color: var(--white);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .pasco-hamburger {
+    display: flex;
+  }
+
+  .pasco-nav-menu {
+    position: fixed;
+    top: 80px;
+    left: -100%;
+    width: 100%;
+    height: calc(100vh - 80px);
+    background: var(--white);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 50px;
+    transition: left 0.3s ease;
+    gap: 30px;
+  }
+
+  .pasco-nav-menu.active {
+    left: 0;
+  }
+
+  .pasco-hamburger.active .pasco-bar:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+  }
+
+  .pasco-hamburger.active .pasco-bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .pasco-hamburger.active .pasco-bar:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+  }
+
+  .pasco-slider-nav {
+    left: 20px;
+    gap: 20px;
+  }
+
+  .pasco-nav-number {
+    font-size: 16px;
+  }
+
+  .pasco-slide-title {
+    font-size: 2.5rem;
+  }
+
+  .pasco-slide-subtitle {
+    font-size: 1.2rem;
+  }
+
+  .pasco-slide-description {
+    font-size: 1rem;
+  }
+
+  .pasco-slide-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pasco-btn {
+    width: 200px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .pasco-nav-container {
+    padding: 0 15px;
+  }
+
+  .pasco-nav-logo img {
+    max-height: 50px;
+  }
+
+  .pasco-slider-nav {
+    left: 15px;
+  }
+
+  .pasco-slide-title {
+    font-size: 2rem;
+  }
+
+  .pasco-slide-content {
+    padding: 0 15px;
+  }
+}
+
+/* Header CTA Section */
+.header-cta {
+  padding: 20px 0;
+  background: var(--primary-color);
+  text-align: center;
+}
+
+.header-cta-title {
+  font-size: 2rem;
+  color: var(--white);
+  margin-bottom: 0;
+  margin-right: 30px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.header-cta-content {
+  display: flex;
+  align-items: center;
+}
+
+.get-started-btn {
+  display: inline-block;
+  background: transparent;
+  color: var(--white);
+  padding: 18px 40px;
+  text-decoration: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 2px solid white;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  border-radius: 0;
+  white-space: nowrap;
+}
+
+.get-started-btn:hover {
+  background: white;
+  color: var(--primary-color);
+  border-color: var(--white);
+}
+
+@media (max-width: 768px) {
+  .header-cta .row {
+    flex-direction: column !important;
+    gap: 20px;
+  }
+
+  .header-cta-title {
+    font-size: 2rem;
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+
+  .get-started-btn {
+    padding: 15px 30px;
+    font-size: 14px;
+  }
+}
+
+/* Read More Button Styling */
+.read-more-btn {
+  display: inline-block;
+  background: transparent;
+  color: var(--primary-color);
+  padding: 12px 25px;
+  text-decoration: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 2px solid var(--primary-color);
+  transition: all 0.3s ease;
+  font-size: 14px;
+  border-radius: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.read-more-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-color);
+  transition: left 0.3s ease;
+  z-index: -1;
+}
+
+.read-more-btn:hover::before {
+  left: 0;
+}
+
+.read-more-btn:hover {
+  color: var(--white);
+  border-color: var(--primary-color);
+  text-decoration: none;
+}
+
+/* Homepage Services Section */
+.homepage-services {
+  background: var(--white);
+}
+
+.homepage-services .row .col-md-4 {
+  cursor: pointer;
+}
+
+.h-service-icon {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  transition: all 0.3s ease;
+}
+
+.h-service-icon i {
+  font-size: 24px;
+  color: var(--white);
+}
+
+.homepage-services .col-md-4:hover .h-service-icon {
+  background: var(--secondary-color);
+  transform: scale(1.1);
+}
+
+.homepage-services .h-services-content {
+  flex: 1;
+}
+
+.homepage-services .h-services-content h3 {
+  color: var(--secondary-color);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+.homepage-services .h-services-content p {
+  color: var(--accent-color);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.services-read-btn {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.services-read-btn::after {
+  content: '→';
+  margin-left: 8px;
+  transition: margin-left 0.3s ease;
+}
+
+.services-read-btn:hover {
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+.services-read-btn:hover::after {
+  margin-left: 12px;
+}
+
+.highlighted-services {
+  background: black;
+  color: white;
+}
+
+.highlighted-services img {
+  width: 400px;
+  height: 280px;
+  object-fit: cover;
+}
+
+@media(max-width: 1399px) {
+  .highlighted-services img {
+    width: 360px;
+  }
+}
+
+@media (max-width:600px) {
+  .highlighted-services img {
+    width: 360px;
+  }
+}
+
+.h-services-content {
+  padding: 20px 20px 20px 0px;
+}
+
+.h-services-content h4 {
+  text-transform: uppercase;
+}
+
+/* Why Choose Us Section */
+.why-choose-us {
+  overflow: hidden;
+}
+
+.why-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-height: 500px;
+}
+
+.why-choose-us-text-part {
+  background: #000000;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  padding: 60px 0;
+  min-height: 500px;
+}
+
+.why-choose-us-text-part .container {
+  max-width: 500px;
+}
+
+.why-choose-us-text-part h2 {
+  color: var(--white);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+.why-choose-us-text-part h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--primary-color);
+}
+
+.why-choose-us-text-part p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 30px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.why-choose-us-text-part ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.why-choose-us-text-part ul li {
+  position: relative;
+  padding: 12px 0 12px 30px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--white);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.why-choose-us-text-part ul li:last-child {
+  border-bottom: none;
+}
+
+.why-choose-us-text-part ul li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 20px;
+  height: 20px;
+  background: var(--primary-color);
+  color: var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.why-choose-us-text-part ul li:hover {
+  padding-left: 35px;
+  color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+  .why-choose-us-text-part {
+    padding: 40px 20px;
+    min-height: auto;
+  }
+
+  .why-choose-us-text-part h2 {
+    font-size: 2rem;
+  }
+
+  .why-img {
+    min-height: 300px;
+  }
+}
+
+.why-img {
+  width: 100%;
+}
+
+.why-choose-us-text-part {
+  background-color: black;
+  color: white;
+}
+
+/* Recent Projects Section */
+.homepage-recent-projects {
+  background-color: #f8f9fa;
+  padding: 80px 0;
+}
+
+.recent-projects-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.recent-projects-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: var(--primary-color);
+}
+
+.recent-projects-subtitle {
+  font-size: 1.1rem;
+  color: var(--accent-color);
+  margin-bottom: 0;
+  font-weight: 400;
+}
+
+/* Project View All Button */
+.project-view-all-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+}
+
+.view-all-projects-btn {
+  background-color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  color: white;
+  padding: 15px 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-radius: 0;
+  display: inline-block;
+}
+
+.view-all-projects-btn:hover {
+  background-color: transparent;
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(237, 27, 36, 0.3);
+}
+
+/* Projects Gallery */
+.projects-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-auto-rows: 150px;
+  /* Reduced from 200px for smaller heights */
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.project-item {
+  position: relative;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  background-color: white;
+}
+
+.project-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Landscape images - smaller height (2 grid rows = 300px) */
+.project-landscape {
+  grid-row: span 2;
+}
+
+/* Portrait images - smaller height (3 grid rows = 450px) */
+.project-portrait {
+  grid-row: span 3;
+}
+
+.project-image-container {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+.project-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.project-item:hover .project-image-container img {
+  transform: scale(1.05);
+}
+
+.project-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom,
+      rgba(36, 32, 33, 0.1) 0%,
+      rgba(36, 32, 33, 0.7) 70%,
+      rgba(36, 32, 33, 0.9) 100%);
+  display: flex;
+  align-items: flex-end;
+  padding: 30px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.project-item:hover .project-overlay {
+  opacity: 1;
+}
+
+.project-info {
+  color: white;
+  width: 100%;
+}
+
+.project-info h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.project-info p {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  opacity: 0.9;
+}
+
+.view-more-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 15px;
+}
+
+.view-more-btn:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px);
+  color: white;
+  text-decoration: none;
+}
+
+.project-category {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 20px;
+}
+
+/* Grid Layout Variations */
+.project-item:nth-child(1) {
+  grid-column: span 1;
+}
+
+.project-item:nth-child(2) {
+  grid-column: span 1;
+}
+
+.project-item:nth-child(3) {
+  grid-column: span 1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .homepage-recent-projects {
+    padding: 60px 0;
+  }
+
+  .recent-projects-title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .recent-projects-title::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .recent-projects-subtitle {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .project-tabs {
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+
+  .project-tab-btn {
+    padding: 10px 18px;
+    font-size: 13px;
+  }
+
+  .projects-gallery {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 200px;
+    /* Reduced mobile height */
+    gap: 15px;
+    margin-top: 20px;
+  }
+
+  /* Mobile: All images same height */
+  .project-landscape,
+  .project-portrait {
+    grid-row: span 1;
+  }
+
+  .project-overlay {
+    padding: 20px;
+  }
+
+  .project-info h4 {
+    font-size: 1.2rem;
+  }
+
+  .project-info p {
+    font-size: 0.95rem;
+  }
+}
+
+/* Statistics Section */
+.homepage-statistics {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  padding: 80px 0;
+  color: white;
+}
+
+.stats-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}
+
+.homepage-statistics .container {
+  position: relative;
+  z-index: 2;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 30px 15px;
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-10px);
+}
+
+.stat-icon {
+  font-size: 3rem;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover .stat-icon {
+  background: var(--primary-color);
+  color: white;
+  transform: scale(1.1);
+}
+
+.stat-number {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 10px;
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .homepage-statistics {
+    padding: 60px 0;
+    background-attachment: scroll;
+  }
+
+  .stat-item {
+    padding: 25px 10px;
+    margin-bottom: 20px;
+  }
+
+  .stat-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 2.5rem;
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+  }
+
+  .stat-label {
+    font-size: 1rem;
+  }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Testimonials CTA Split Section */
+/* Left Side - Call to Action */
+.pasco-testimonials-cta-part {
+  /* background-color: var(--secondary-color); */
+  color: black;
+  display: flex;
+  align-items: center;
+  padding: 4rem 0;
+}
+
+.pasco-testimonials-cta-content {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.pasco-testimonials-cta-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: black;
+}
+
+.pasco-testimonials-cta-text {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: black;
+  margin-bottom: 2rem;
+}
+
+.pasco-testimonials-stats {
+  display: flex;
+  gap: 3rem;
+  margin-bottom: 2.5rem;
+}
+
+.pasco-testimonials-stat-item {
+  text-align: center;
+}
+
+.pasco-testimonials-stat-item h3 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.pasco-testimonials-stat-item span {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.pasco-testimonials-cta-btn {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.pasco-testimonials-cta-btn:hover {
+  background-color: #c91620;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Right Side - Testimonials Carousel */
+.pasco-testimonials-carousel-part {
+  background-color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  padding: 4rem 0;
+  position: relative;
+}
+
+.pasco-testimonials-carousel-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.pasco-testimonials-carousel {
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.pasco-testimonials-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.pasco-testimonial-slide {
+  min-width: 100%;
+  padding: 0 20px;
+}
+
+.pasco-testimonial-card {
+  background: white;
+  border-radius: 15px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  border: 1px solid #e9ecef;
+  position: relative;
+}
+
+.pasco-testimonial-quote-icon {
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 30px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1rem;
+}
+
+
+.pasco-testimonial-text {
+  font-size: 1rem;
+  color: var(--secondary-color);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.pasco-testimonial-author {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.pasco-testimonial-avatar {
+  width: 45px;
+  height: 45px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.1rem;
+}
+
+.pasco-testimonial-info h5 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--secondary-color);
+  margin-bottom: 0.25rem;
+}
+
+.pasco-testimonial-info span {
+  font-size: 0.85rem;
+  color: var(--accent-color);
+}
+
+/* Navigation Controls at Bottom Right */
+.pasco-testimonials-nav-wrapper {
+  position: absolute;
+  bottom: 20px;
+  right: 40px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pasco-testimonials-nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pasco-testimonials-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background-color: white;
+  color: var(--secondary-color);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.pasco-testimonials-btn:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: scale(1.05);
+}
+
+/* Dots Indicators */
+.pasco-testimonials-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pasco-testimonial-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #d1d5db;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pasco-testimonial-dot.active {
+  background-color: var(--primary-color);
+  transform: scale(1.2);
+}
+
+.pasco-testimonial-dot:hover {
+  background-color: var(--primary-color);
+  opacity: 0.7;
+}
+
+/* Responsive Design for Testimonials CTA Section */
+@media (max-width: 768px) {
+  .pasco-testimonials-cta-section {
+    min-height: auto;
+  }
+
+  .pasco-testimonials-cta-part,
+  .pasco-testimonials-carousel-part {
+    padding: 3rem 0;
+  }
+
+  .pasco-testimonials-cta-title {
+    font-size: 2rem;
+  }
+
+  .pasco-testimonials-stats {
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .pasco-testimonials-stat-item h3 {
+    font-size: 1.8rem;
+  }
+
+  .pasco-testimonial-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .pasco-testimonials-nav-wrapper {
+    right: 20px;
+    bottom: 15px;
+  }
+
+  .pasco-testimonials-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Footer */
+.pasco-footer {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.footer-main {
+  padding: 4rem 0 2rem;
+}
+
+.footer-section {
+  height: 100%;
+}
+
+.footer-logo {
+  margin-bottom: 1.5rem;
+}
+
+.footer-logo img {
+  max-height: 50px;
+  width: auto;
+}
+
+.footer-description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 2rem;
+}
+
+.footer-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 1.5rem;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.8rem;
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: var(--primary-color);
+}
+
+.footer-social {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.social-link:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+}
+
+.contact-item i {
+  color: var(--primary-color);
+  width: 16px;
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+}
+
+.contact-item span {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.5rem 0;
+}
+
+.footer-copyright {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.footer-bottom-links {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+}
+
+.footer-bottom-links a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.footer-bottom-links a:hover {
+  color: var(--primary-color);
+}
+
+/* Responsive Design for Testimonials and Footer */
+@media (max-width: 768px) {
+  .testimonials-title {
+    font-size: 2rem;
+  }
+
+  .testimonial-card {
+    padding: 1.5rem;
+  }
+
+  .footer-main {
+    padding: 3rem 0 2rem;
+  }
+
+  .footer-bottom-links {
+    justify-content: center;
+    margin-top: 1rem;
+  }
+}
+
+/* About Header Section */
+.pasco-about-header {
+  position: relative;
+  min-height: 60vh;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  padding: 120px 0 80px;
+}
+
+.pasco-about-header-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}
+
+.pasco-about-header-content {
+  position: relative;
+  z-index: 2;
+  color: white;
+}
+
+.pasco-about-header-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+  position: relative;
+}
+
+.pasco-about-header-title::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  width: 80px;
+  height: 4px;
+  background: var(--primary-color);
+}
+
+.pasco-about-header-description {
+  font-size: 1.3rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 3rem;
+  max-width: 90%;
+}
+
+.pasco-about-header-stats {
+  display: flex;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.pasco-about-stat {
+  text-align: center;
+}
+
+.pasco-about-stat-number {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.pasco-about-stat-label {
+  display: block;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Responsive Design for About Header */
+@media (max-width: 768px) {
+  .pasco-about-header {
+    min-height: 50vh;
+    padding: 100px 0 60px;
+    background-attachment: scroll;
+  }
+
+  .pasco-about-header-title {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .pasco-about-header-title::after {
+    width: 60px;
+    height: 3px;
+  }
+
+  .pasco-about-header-description {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    max-width: 100%;
+  }
+
+  .pasco-about-header-stats {
+    gap: 2rem;
+    justify-content: center;
+  }
+
+  .pasco-about-stat-number {
+    font-size: 2rem;
+  }
+
+  .pasco-about-stat-label {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pasco-about-header {
+    padding: 90px 0 50px;
+  }
+
+  .pasco-about-header-title {
+    font-size: 2rem;
+  }
+
+  .pasco-about-header-description {
+    font-size: 1rem;
+  }
+
+  .pasco-about-header-stats {
+    gap: 1.5rem;
+  }
+
+  .pasco-about-stat-number {
+    font-size: 1.8rem;
+  }
+}
+
+/* Our Story Section */
+.pasco-our-story {
+  overflow: hidden;
+}
+
+.pasco-story-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* min-height: 600px; */
+}
+
+.pasco-our-story-text-part {
+  background: white;
+  color: black;
+  display: flex;
+  align-items: center;
+  padding: 80px 0;
+}
+
+.pasco-our-story-content {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.pasco-our-story-content h2 {
+  color: black;
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+.pasco-our-story-content h2::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--primary-color);
+}
+
+.pasco-our-story-content h3 {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  letter-spacing: 0.5px;
+}
+
+.pasco-our-story-content p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.pasco-our-story-content p:last-of-type {
+  margin-bottom: 2.5rem;
+}
+
+.pasco-our-story-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.pasco-story-highlight {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid black;
+  transition: all 0.3s ease;
+}
+
+.pasco-story-highlight:last-child {
+  border-bottom: none;
+}
+
+.pasco-story-highlight i {
+  width: 20px;
+  height: 20px;
+  background: var(--primary-color);
+  color: rgba(0, 0, 0, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.pasco-story-highlight span {
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.pasco-story-highlight:hover {
+  padding-left: 1rem;
+  color: var(--primary-color);
+}
+
+.pasco-story-highlight:hover span {
+  color: var(--primary-color);
+}
+
+/* Responsive Design for Our Story Section */
+@media (max-width: 768px) {
+  .pasco-our-story-text-part {
+    padding: 60px 0;
+    min-height: auto;
+  }
+
+  .pasco-our-story-content h2 {
+    font-size: 2.2rem;
+  }
+
+  .pasco-our-story-content h3 {
+    font-size: 1.3rem;
+  }
+
+  .pasco-our-story-content p {
+    font-size: 1rem;
+  }
+
+  .pasco-story-img {
+    min-height: 400px;
+  }
+
+  .pasco-our-story-highlights {
+    gap: 1rem;
+  }
+
+  .pasco-story-highlight {
+    padding: 0.8rem 0;
+  }
+}
+
+.our-story img {
+  width: 100%;
+}
+
+/* Mission and Vision Section */
+.pasco-mission-and-vision {
+  background-color: #f8f9fa;
+  padding: 80px 0;
+  margin-bottom: 0;
+  position: relative;
+  z-index: 10;
+}
+
+.pasco-mission-vision-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.pasco-mission-vision-subtitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 0;
+  line-height: 1.6;
+}
+
+.pasco-mission-vision-card {
+  background: white;
+  border-radius: 15px;
+  padding: 40px 30px;
+  height: 100%;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.pasco-mission-vision-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border-color: var(--primary-color);
+}
+
+.pasco-mission-vision-icon {
+  width: 80px;
+  height: 80px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 25px;
+  font-size: 2.5rem;
+  transition: all 0.3s ease;
+}
+
+.pasco-mission-vision-card:hover .pasco-mission-vision-icon {
+  transform: scale(1.1);
+  box-shadow: 0 10px 20px rgba(255, 165, 0, 0.3);
+}
+
+.pasco-mission-vision-card-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 20px;
+}
+
+.pasco-mission-vision-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin-bottom: 0;
+}
+
+/* Responsive Design for Mission and Vision */
+@media (max-width: 768px) {
+  .pasco-mission-and-vision {
+    padding: 60px 0;
+  }
+
+  .pasco-mission-vision-title {
+    font-size: 2.5rem;
+  }
+
+  .pasco-mission-vision-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .pasco-mission-vision-card {
+    padding: 30px 20px;
+    margin-bottom: 30px;
+  }
+
+  .pasco-mission-vision-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 2rem;
+  }
+
+  .pasco-mission-vision-card-title {
+    font-size: 1.5rem;
+  }
+
+  .pasco-mission-vision-text {
+    font-size: 1rem;
+  }
+}
+
+/* Core Values Section */
+.pasco-core-values {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 100px 0;
+  position: relative;
+  margin-top: 0;
+  clear: both;
+  z-index: 5;
+}
+
+.pasco-core-values-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 6;
+}
+
+.pasco-core-values .container {
+  position: relative;
+  z-index: 7;
+}
+
+.pasco-core-values-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.pasco-core-values-subtitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  margin-bottom: 0;
+  line-height: 1.6;
+}
+
+.pasco-core-value-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 40px 25px;
+  text-align: center;
+  height: 100%;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.pasco-core-value-card:hover {
+  transform: translateY(-10px);
+  background: white;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.pasco-core-value-icon {
+  width: 70px;
+  height: 70px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 25px;
+  font-size: 2rem;
+  transition: all 0.3s ease;
+}
+
+.pasco-core-value-card:hover .pasco-core-value-icon {
+  transform: scale(1.1);
+  box-shadow: 0 10px 20px rgba(255, 165, 0, 0.3);
+}
+
+.pasco-core-value-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 15px;
+}
+
+.pasco-core-value-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-bottom: 0;
+}
+
+/* Responsive Design for Core Values */
+@media (max-width: 768px) {
+  .pasco-core-values {
+    padding: 80px 0;
+    background-attachment: scroll;
+    margin-top: 0;
+  }
+
+  .pasco-core-values-title {
+    font-size: 2.5rem;
+  }
+
+  .pasco-core-values-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .pasco-core-value-card {
+    padding: 30px 20px;
+    margin-bottom: 20px;
+  }
+
+  .pasco-core-value-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.8rem;
+  }
+
+  .pasco-core-value-title {
+    font-size: 1.2rem;
+  }
+
+  .pasco-core-value-text {
+    font-size: 0.95rem;
+  }
+}
+
+/* Services Header Section */
+.pasco-services-header {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 80vh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-top: 80px;
+  /* Account for fixed navbar */
+}
+
+.pasco-services-header-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.pasco-services-header .container {
+  position: relative;
+  z-index: 2;
+}
+
+.pasco-services-header-content {
+  color: white;
+  /* max-width: 600px; */
+}
+
+.pasco-services-header-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 25px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.pasco-services-header-description {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.2rem;
+  line-height: 1.7;
+  margin-bottom: 35px;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.pasco-services-header-buttons {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.pasco-services-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--primary-color);
+  color: white;
+  padding: 15px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  border: 2px solid var(--primary-color);
+}
+
+.pasco-services-btn-primary:hover {
+  background: transparent;
+  color: var(--primary-color);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(255, 165, 0, 0.3);
+}
+
+.pasco-services-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  border: 2px solid white;
+}
+
+.pasco-services-btn-secondary:hover {
+  background: white;
+  color: var(--text-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive Design for Services Header */
+/* For laptops with smaller screen heights */
+@media (max-height: 720px) and (min-width: 769px) {
+  .pasco-services-header {
+    height: 85vh;
+    min-height: 550px;
+    padding-top: 100px;
+  }
+
+  .pasco-services-header-title {
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+
+  .pasco-services-header-description {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-height: 650px) and (min-width: 769px) {
+  .pasco-services-header {
+    height: 90vh;
+    min-height: 500px;
+    padding-top: 120px;
+  }
+
+  .pasco-services-header-title {
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+  }
+
+  .pasco-services-header-description {
+    font-size: 1rem;
+    margin-bottom: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pasco-services-header {
+    height: 80vh;
+    min-height: 500px;
+    background-attachment: scroll;
+    padding: 100px 0 60px;
+  }
+
+  .pasco-services-header-title {
+    font-size: 2.5rem;
+  }
+
+  .pasco-services-header-description {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+  }
+
+  .pasco-services-header-buttons {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .pasco-services-btn-primary,
+  .pasco-services-btn-secondary {
+    padding: 12px 25px;
+    font-size: 1rem;
+    width: fit-content;
+  }
+}
+
+/* All Building Services Section */
+.pasco-all-building-services {
+  padding: 80px 0;
+  background-color: #f8f9fa;
+}
+
+.pasco-services-section-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.pasco-services-section-subtitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 0;
+  line-height: 1.6;
+}
+
+/* Service Cards */
+.pasco-service-card {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pasco-service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.pasco-service-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: all 0.3s ease;
+}
+
+.pasco-service-card:hover .pasco-service-card-overlay {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.pasco-service-card-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  z-index: 2;
+  color: white;
+}
+
+.pasco-service-card-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.pasco-service-card-description {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.pasco-service-read-more-btn {
+  background: transparent;
+  color: white;
+  border: 1px solid white;
+  padding: 8px 16px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.pasco-service-read-more-btn:hover {
+  background: white;
+  color: #333;
+  transform: translateX(5px);
+}
+
+/* Service Modals */
+.pasco-service-modal .modal-content {
+  border-radius: 15px;
+  border: none;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.pasco-service-modal .modal-header {
+  background: var(--primary-color);
+  color: white;
+  border-radius: 15px 15px 0 0;
+  border-bottom: none;
+  padding: 20px 30px;
+}
+
+.pasco-modal-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.pasco-modal-title i {
+  font-size: 1.8rem;
+}
+
+.pasco-service-modal .btn-close {
+  filter: brightness(0) invert(1);
+}
+
+.pasco-service-modal .modal-body {
+  padding: 30px;
+}
+
+.pasco-modal-content {
+  font-family: 'Outfit', sans-serif;
+}
+
+.pasco-modal-description {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin-bottom: 25px;
+}
+
+.pasco-modal-features-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 15px;
+}
+
+.pasco-modal-features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pasco-modal-features-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.pasco-modal-features-list li i {
+  color: var(--primary-color);
+  font-size: 1rem;
+}
+
+.pasco-service-modal .modal-footer {
+  border-top: 1px solid #e9ecef;
+  padding: 20px 30px;
+}
+
+.pasco-modal-btn-primary {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  padding: 10px 25px;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+.pasco-modal-btn-primary:hover {
+  background: var(--secondary-color);
+  border-color: var(--secondary-color);
+  transform: translateY(-2px);
+}
+
+/* Responsive Design for Service Cards */
+@media (max-width: 768px) {
+  .pasco-all-building-services {
+    padding: 60px 0;
+  }
+
+  .pasco-services-section-title {
+    font-size: 2.5rem;
+  }
+
+  .pasco-services-section-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .pasco-service-card {
+    height: 350px;
+    margin-bottom: 20px;
+  }
+
+  .pasco-service-card-content {
+    padding: 25px;
+  }
+
+  .pasco-service-card-title {
+    font-size: 1.3rem;
+  }
+
+  .pasco-service-card-description {
+    font-size: 0.95rem;
+  }
+
+  .pasco-service-read-more-btn {
+    padding: 6px 14px;
+    font-size: 0.75rem;
+  }
+
+  .pasco-service-modal .modal-body {
+    padding: 20px;
+  }
+
+  .pasco-modal-title {
+    font-size: 1.3rem;
+  }
+
+  .pasco-modal-description {
+    font-size: 1rem;
+  }
+}
+
+/* Portfolio Header Section */
+.pasco-portfolio-header {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 85vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.pasco-portfolio-header-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.pasco-portfolio-header .container {
+  position: relative;
+  z-index: 2;
+}
+
+.pasco-portfolio-header-content {
+  color: white;
+}
+
+.pasco-portfolio-header-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 25px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  color: white;
+}
+
+.pasco-portfolio-header-description {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.3rem;
+  line-height: 1.7;
+  margin-bottom: 35px;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  max-width: 90%;
+}
+
+.pasco-portfolio-header-buttons {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.pasco-portfolio-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--primary-color);
+  color: white;
+  padding: 15px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  border: 2px solid var(--primary-color);
+}
+
+.pasco-portfolio-btn-primary:hover {
+  background: transparent;
+  color: var(--primary-color);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(255, 165, 0, 0.3);
+}
+
+/* Responsive Design for Portfolio Header */
+@media (max-width: 768px) {
+  .pasco-portfolio-header {
+    height: 75vh;
+    background-attachment: scroll;
+    padding: 100px 0 60px;
+  }
+
+  .pasco-portfolio-header-title {
+    font-size: 2.8rem;
+  }
+
+  .pasco-portfolio-header-description {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    max-width: 100%;
+  }
+
+  .pasco-portfolio-header-buttons {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .pasco-portfolio-btn-primary {
+    padding: 12px 25px;
+    font-size: 1rem;
+    width: fit-content;
+  }
+}
+
+@media (max-width: 480px) {
+  .pasco-portfolio-header {
+    height: 70vh;
+  }
+
+  .pasco-portfolio-header-title {
+    font-size: 2.2rem;
+  }
+
+  .pasco-portfolio-header-description {
+    font-size: 1rem;
+  }
+}
+
+/* Contact Header Section */
+.pasco-contact-header {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 85vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.pasco-contact-header-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.pasco-contact-header .container {
+  position: relative;
+  z-index: 2;
+}
+
+.pasco-contact-header-content {
+  color: white;
+}
+
+.pasco-contact-header-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 25px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  color: white;
+}
+
+.pasco-contact-header-description {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.3rem;
+  line-height: 1.7;
+  margin-bottom: 35px;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  max-width: 90%;
+}
+
+.pasco-contact-header-buttons {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.pasco-contact-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--primary-color);
+  color: white;
+  padding: 15px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  border: 2px solid var(--primary-color);
+}
+
+.pasco-contact-btn-primary:hover {
+  background: transparent;
+  color: var(--primary-color);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(237, 27, 36, 0.3);
+}
+
+/* Responsive Design for Contact Header */
+@media (max-width: 768px) {
+  .pasco-contact-header {
+    height: 75vh;
+    background-attachment: scroll;
+    padding: 100px 0 60px;
+  }
+
+  .pasco-contact-header-title {
+    font-size: 2.8rem;
+  }
+
+  .pasco-contact-header-description {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    max-width: 100%;
+  }
+
+  .pasco-contact-header-buttons {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .pasco-contact-btn-primary {
+    padding: 12px 25px;
+    font-size: 1rem;
+    width: fit-content;
+  }
+}
+
+@media (max-width: 480px) {
+  .pasco-contact-header {
+    height: 70vh;
+  }
+
+  .pasco-contact-header-title {
+    font-size: 2.2rem;
+  }
+
+  .pasco-contact-header-description {
+    font-size: 1rem;
+  }
+}
+
+/* Contact Information and Form Section */
+.contact-info-and-form {
+  background-color: #f8f9fa;
+  padding: 80px 0;
+}
+
+.contact-section-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--secondary-color);
+  margin-bottom: 15px;
+}
+
+.contact-section-subtitle {
+  font-size: 1.1rem;
+  color: var(--accent-color);
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+/* Contact Information Styles */
+.contact-details {
+  margin-bottom: 40px;
+}
+
+.contact-detail-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.contact-detail-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.contact-detail-icon {
+  background: var(--primary-color);
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  flex-shrink: 0;
+}
+
+.contact-detail-icon i {
+  font-size: 1.2rem;
+}
+
+.contact-detail-content h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--secondary-color);
+  margin-bottom: 8px;
+}
+
+.contact-detail-content p {
+  margin: 0;
+  color: var(--accent-color);
+  line-height: 1.5;
+}
+
+.contact-detail-content a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.contact-detail-content a:hover {
+  color: var(--secondary-color);
+}
+
+/* Social Media Links */
+.contact-social-media {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.contact-social-media h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--secondary-color);
+  margin-bottom: 15px;
+}
+
+.contact-social-links {
+  display: flex;
+  gap: 15px;
+}
+
+.contact-social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.contact-social-link:hover {
+  background: var(--secondary-color);
+  color: white;
+  transform: translateY(-3px);
+}
+
+/* Contact Form Styles */
+.contact-form-section {
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.contact-input {
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  padding: 12px 15px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: #f8f9fa;
+}
+
+.contact-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(237, 27, 36, 0.1);
+  background-color: white;
+}
+
+.form-label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  color: var(--secondary-color);
+  margin-bottom: 8px;
+}
+
+.contact-submit-btn {
+  background: var(--primary-color);
+  color: white;
+  border: 2px solid var(--primary-color);
+  padding: 15px 40px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.contact-submit-btn:hover {
+  background: transparent;
+  color: var(--primary-color);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(237, 27, 36, 0.3);
+}
+
+/* Map Section */
+.contact-map-section {
+  margin-top: 0;
+}
+
+.contact-map-container {
+  height: 400px;
+  width: 100%;
+}
+
+.contact-map-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  filter: grayscale(0.3);
+}
+
+/* Responsive Design for Contact Section */
+@media (max-width: 992px) {
+  .contact-section-title {
+    font-size: 2.2rem;
+  }
+
+  .contact-form-section {
+    padding: 30px;
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-info-and-form {
+    padding: 60px 0;
+  }
+
+  .contact-section-title {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .contact-section-subtitle {
+    text-align: center;
+  }
+
+  .contact-form-section {
+    padding: 25px;
+  }
+
+  .contact-detail-item {
+    padding: 15px;
+  }
+
+  .contact-detail-icon {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+/* Back to Top Button */
+.back-to-top-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(237, 27, 36, 0.3);
+}
+
+.back-to-top-btn.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back-to-top-btn:hover {
+  background: var(--secondary-color);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(237, 27, 36, 0.4);
+}
+
+.back-to-top-btn:active {
+  transform: translateY(-1px);
+}
+
+/* Responsive adjustments for back to top button */
+@media (max-width: 768px) {
+  .back-to-top-btn {
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem;
+  }
+}
+
+/* Portfolio Gallery Section */
+.portfolio-gallery {
+  background-color: #f8f9fa;
+  padding: 80px 0;
+}
+
+.portfolio-gallery-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.portfolio-gallery-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background-color: var(--primary-color);
+}
+
+.portfolio-gallery-subtitle {
+  font-size: 1.2rem;
+  color: var(--accent-color);
+  margin-bottom: 0;
+  font-weight: 400;
+}
+
+/* Portfolio Grid - Masonry Layout */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-auto-rows: 150px;
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.portfolio-item {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.portfolio-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Landscape images - 2 grid rows */
+.portfolio-landscape {
+  grid-row: span 2;
+}
+
+/* Portrait images - 2.5 grid rows */
+.portfolio-portrait {
+  grid-row: span 2;
+}
+
+.portfolio-image-container {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+.portfolio-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.portfolio-item:hover .portfolio-image-container img {
+  transform: scale(1.05);
+}
+
+.portfolio-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(36, 32, 33, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.portfolio-item:hover .portfolio-overlay {
+  opacity: 1;
+}
+
+.portfolio-overlay-content {
+  color: white;
+  text-align: center;
+}
+
+.portfolio-overlay-content i {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  transition: transform 0.3s ease;
+}
+
+.portfolio-item:hover .portfolio-overlay-content i {
+  transform: scale(1.1);
+}
+
+/* Video Portfolio Items */
+.portfolio-video .portfolio-overlay {
+  opacity: 1;
+  /* Always visible for video items */
+  background: rgba(36, 32, 33, 0.8);
+  /* Slightly more opaque for better text readability */
+}
+
+.portfolio-video .portfolio-overlay-content {
+  text-align: center;
+}
+
+.portfolio-video .portfolio-overlay-content i {
+  font-size: 4rem;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+  transition: transform 0.3s ease;
+}
+
+.portfolio-video .portfolio-overlay-content h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: white;
+}
+
+.portfolio-video .portfolio-overlay-content p {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin: 0;
+  color: white;
+}
+
+.portfolio-video:hover .portfolio-overlay {
+  opacity: 1;
+  /* Keep same opacity on hover */
+}
+
+.portfolio-video:hover .portfolio-overlay-content i {
+  transform: scale(1.2);
+  color: #ffffff;
+}
+
+/* Video Modal Styles */
+.video-modal-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.video-iframe-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+  /* 16:9 aspect ratio */
+  overflow: hidden;
+}
+
+.video-iframe-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video-modal-info {
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 25px;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.video-modal-info h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.video-modal-info p {
+  font-size: 1rem;
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* Portfolio Modal */
+.portfolio-modal {
+  background: #000;
+  border: none;
+  border-radius: 0;
+}
+
+.portfolio-modal .modal-header {
+  background: rgba(0, 0, 0, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.portfolio-modal .modal-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  color: white;
+}
+
+.portfolio-modal-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 70vh;
+}
+
+.portfolio-modal-image-container {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  width: 100%;
+}
+
+.portfolio-modal-image {
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+}
+
+.portfolio-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--secondary-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.portfolio-nav-btn:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.portfolio-prev-btn {
+  left: 20px;
+}
+
+.portfolio-next-btn {
+  right: 20px;
+}
+
+.portfolio-modal-info {
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 25px;
+  text-align: center;
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.portfolio-modal-info h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.portfolio-modal-info p {
+  font-size: 1rem;
+  margin-bottom: 15px;
+  opacity: 0.9;
+}
+
+.portfolio-modal-counter {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  color: var(--primary-color);
+  font-size: 0.9rem;
+}
+
+/* Responsive Design for Portfolio */
+@media (max-width: 768px) {
+  .portfolio-gallery {
+    padding: 60px 0;
+  }
+
+  .portfolio-gallery-title {
+    font-size: 2.2rem;
+  }
+
+  .portfolio-gallery-subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 200px;
+    gap: 15px;
+    margin-top: 30px;
+  }
+
+  /* Mobile: All images same height */
+  .portfolio-landscape,
+  .portfolio-portrait {
+    grid-row: span 1;
+  }
+
+  .portfolio-overlay {
+    padding: 0;
+  }
+
+  .portfolio-modal-image {
+    max-height: 50vh;
+  }
+
+  .portfolio-nav-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .portfolio-prev-btn {
+    left: 10px;
+  }
+
+  .portfolio-next-btn {
+    right: 10px;
+  }
+
+  .portfolio-modal-info {
+    padding: 20px;
+  }
+
+  .portfolio-modal-info h4 {
+    font-size: 1.3rem;
+  }
+}
+
+/* Portfolio Call-to-Action Section */
+.pasco-portfolio-cta {
+  position: relative;
+  padding: 120px 0;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  overflow: hidden;
+}
+
+.pasco-portfolio-cta-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to right,
+      rgba(36, 32, 33, 0.9) 0%,
+      rgba(36, 32, 33, 0.7) 50%,
+      rgba(36, 32, 33, 0.3) 100%);
+  z-index: 1;
+}
+
+.pasco-portfolio-cta-content {
+  position: relative;
+  z-index: 2;
+  color: white;
+}
+
+.pasco-portfolio-cta-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 25px;
+  line-height: 1.2;
+}
+
+.pasco-portfolio-cta-description {
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 40px;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.pasco-portfolio-cta-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.pasco-portfolio-cta-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 35px;
+  background-color: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(213, 126, 47, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pasco-portfolio-cta-btn-primary:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(213, 126, 47, 0.3);
+  color: white;
+  text-decoration: none;
+}
+
+.pasco-portfolio-cta-btn-primary i {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.pasco-portfolio-cta-btn-primary:hover i {
+  transform: scale(1.1);
+}
+
+/* Responsive Design for Portfolio CTA */
+@media (max-width: 768px) {
+  .pasco-portfolio-cta {
+    padding: 80px 0;
+    background-attachment: scroll;
+  }
+
+  .pasco-portfolio-cta-overlay {
+    background: linear-gradient(to bottom,
+        rgba(36, 32, 33, 0.9) 0%,
+        rgba(36, 32, 33, 0.7) 100%);
+  }
+
+  .pasco-portfolio-cta-title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+
+  .pasco-portfolio-cta-description {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+  }
+
+  .pasco-portfolio-cta-btn-primary {
+    padding: 15px 30px;
+    font-size: 1rem;
+    width: 100%;
+    justify-content: center;
+  }
+}
